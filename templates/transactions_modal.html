@@ -1,0 +1,75 @@
+
+{% extends "profile.html" %}
+
+{% block content %}
+<div id="make_transaction_modal" class="modal is-active">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title has-text-dark"> Send Money </h1>
+      <!-- Your content -->
+      <form method="POST" action="/add_transaction">
+        <!-- <form method="POST" action="/add_account"> -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+        </div>
+        {% endif %}
+        {% endwith %}
+        <label class="label"> Select Account</label>
+        <div class = "field has-addons has-addons-centered">
+          <div class = "control">
+            <div class = "select is-primary">
+              <select name="account_select">
+                {% for account in accounts %}
+                <option>{{account.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="number" name="account_number" placeholder="Account Number" autofocus="">
+          </div>
+        </div>
+
+        <!-- <h2 class="subtitle has-text-dark"> Account Type </h2> -->
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="number" name="account_balance" placeholder="Topup Amount" step="0.5">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="text" name="description" placeholder="Description">
+          </div>
+        </div>
+
+        <!-- <label class="label"> Select Account type</label> -->
+        <!-- <div class = "field has-addons has-addons-centered"> -->
+        <!--   <div class = "control"> -->
+        <!--     <div class = "select is-primary"> -->
+        <!--       <select name="account_select"> -->
+        <!--         <option>Checkings</option> -->
+        <!--         <option>Savings</option> -->
+        <!--       </select> -->
+        <!--     </div> -->
+        <!--   </div> -->
+        <!-- </div> -->
+
+        <input type="hidden" name="data" value={{ account_id }}></input>
+        <button class="button is-block is-info is-large is-fullwidth">Send</button>
+        </form>
+    </div>
+  </div>
+
+  <form method="GET" action="/profile">
+    <button class="modal-close is-large" aria-label="close"></button>
+  </form>
+</div>
+
+{% endblock %}

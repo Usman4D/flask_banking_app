@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation"> -->
+<!--   <div class="navbar-brand"> -->
+<!--     <a class="navbar-item" href="https://bulma.io"> -->
+<!--       <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="112" height="28"> -->
+<!--     </a> -->
+<!---->
+<!--     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"> -->
+<!--       <span aria-hidden="true"></span> -->
+<!--       <span aria-hidden="true"></span> -->
+<!--       <span aria-hidden="true"></span> -->
+<!--     </a> -->
+<!--   </div> -->
+<!-- </nav> -->
+  <h1 class="title">
+    Welcome, {{ name }}!
+  </h1>
+  <div class="box">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-2 separator">
+          <!-- <button class="button is-primary">Send Money</button> -->
+          <form method="POST" action="/make_transaction">
+            <!-- <button class="button is-primary js-modal-trigger" data-target="create-account-modal">Create New Account</button> -->
+            <!-- Zero -->
+            <input type="hidden" name="data" value="0"></input>
+            <button class="button is-primary">Send Money</button>
+          </form>
+        </div>
+        <div class="column is-2 separator">
+          <button class="button is-primary">Pay Bills</button>
+        </div>
+        <!-- <div class="column is-2 separator"> -->
+        <!--   <button class="button is-primary">More</button> -->
+        <!-- </div> -->
+        <!-- <div class="column is-2 "> -->
+        <!-- </div> -->
+        <!-- <div class="column is-2"> -->
+        <!-- </div> -->
+      </div>
+    </div>
+</div>
+<div class="box">
+  <div class="content is-small">
+    <button class="button is-primary js-modal-trigger" data-target="create-account-modal">Create New Account</button>
+    <h3> What I Have </h3>
+  </div>
+  <hr class="is-divider has-background-dark"></hr>
+  <div class="columns is-desktop is-vcentered">
+    {% for account in accounts %}
+    <div class="column vseparator hoverable">
+      <div class="content is-small">
+        <h4> {{ account.type.value}} Account </h4>
+        <p> <strong>Name:</strong> {{account.name}} </p>
+        <p> <strong>Id:</strong> {{account.number}} </p>
+      </div>
+      <div>
+        <h4 class="has-text-primary">
+          <u>{{account.balance}} PKR</u>
+        </h4>
+      </div>
+      <form method="POST" action="/accounts_details">
+        <!-- <button class="button is-primary js-modal-trigger" data-target="create-account-modal">Create New Account</button> -->
+        <input type="hidden" name="data" value={{account.number}}></input>
+        <button class="button is-primary">Open Accounts details</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div id="modal-js-example" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <p>Modal JS example</p>
+      <!-- Your content -->
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<div id="create-account-modal" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title has-text-dark"> Open Account </h1>
+      <!-- Your content -->
+      <form method="POST" action="/add_account">
+        <!-- <form method="POST" action="/add_account"> -->
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="text" name="account_name" placeholder="Account Name" autofocus="">
+          </div>
+        </div>
+
+        <!-- <h2 class="subtitle has-text-dark"> Account Type </h2> -->
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="number" name="account_balance" placeholder="Topup Amount" step="0.5">
+          </div>
+        </div>
+
+        <label class="label"> Select Account type</label>
+        <div class = "field has-addons has-addons-centered">
+          <div class = "control">
+            <div class = "select is-primary">
+              <select name="account_select">
+                <option>Checkings</option>
+                <option>Savings</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <button class="button is-block is-info is-large is-fullwidth">Open</button>
+        </form>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div id="make_transaction_modal" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title has-text-dark"> Send Money </h1>
+      <!-- Your content -->
+      <form method="POST" action="/make_transaction">
+        <!-- <form method="POST" action="/add_account"> -->
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="number" name="account_number" placeholder="Account Number" autofocus="">
+          </div>
+        </div>
+
+        <!-- <h2 class="subtitle has-text-dark"> Account Type </h2> -->
+        <div class="field">
+          <div class="control">
+            <input class="input is-large" type="number" name="account_balance" placeholder="Topup Amount" step="0.5">
+          </div>
+        </div>
+
+        <!-- <label class="label"> Select Account type</label> -->
+        <!-- <div class = "field has-addons has-addons-centered"> -->
+        <!--   <div class = "control"> -->
+        <!--     <div class = "select is-primary"> -->
+        <!--       <select name="account_select"> -->
+        <!--         <option>Checkings</option> -->
+        <!--         <option>Savings</option> -->
+        <!--       </select> -->
+        <!--     </div> -->
+        <!--   </div> -->
+        <!-- </div> -->
+
+
+        <button class="button is-block is-info is-large is-fullwidth">Send</button>
+        </form>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div id="account_details_modal" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title has-text-dark"> Account Details </h1>
+
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Account Name</p>
+            <p class="title">{}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Following</p>
+            <p class="title">123</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Followers</p>
+            <p class="title">456K</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Likes</p>
+            <p class="title">789</p>
+          </div>
+        </div>
+      </nav>
+      <!-- Your content -->
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<!-- <h1 class="title"> -->
+<!--   Welcome, {{ name }}! -->
+<!-- </h1> -->
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "profile.html" %}
+
+{% block content %}
+
+<div id="account_details_modal" class="modal is-active">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title has-text-dark"> Account Details </h1>
+
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Account Name</p>
+            <p class="title has-text-dark"> {{account.name}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Account Number</p>
+            <p class="title has-text-dark">{{account.number}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading ">Account Holder Name</p>
+            <p class="title has-text-dark"> {{user_name}} </p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Type</p>
+            <p class="title has-text-dark">{{account.type.value}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Balance</p>
+            <p class="title has-text-dark"> {{account.balance}} PKR</p>
+          </div>
+        </div>
+      </nav>
+      <hr class="is-divider has-background-dark"></hr>
+      <h1 class="title has-text-dark"> Transaction History </h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th><abbr title="Number">No.</abbr></th>
+      <th><abbr title="Date">Date</abbr></th>
+      <th><abbr title="Amount">Amount</abbr></th>
+      <th><abbr title="To">To</abbr></th>
+      <th><abbr title="Description">Description</abbr></th>
+    </tr>
+  </thead>
+<tbody>
+  {% for transaction in transactions %}
+  <tr>
+    <th>1</th>
+    <td>{{transaction.date}}</td>
+    <td>{{transaction.amount}} PKR</td>
+    <td>{{transaction.to}}</td>
+    <td>{{transaction.description}}</td>
+  </tr>
+  {% endfor %}
+  <!-- <tr> -->
+  <!--     <th>1</th> -->
+  <!--     <td>02/04/2023</td> -->
+  <!--     <td>231.44 PKR</td> -->
+  <!--     <td>Sadiq</td> -->
+  <!--     <td>Miscellanous</td> -->
+  <!--   </tr> -->
+  <!--   <tr> -->
+  <!--     <th>2</th> -->
+  <!--     <td>02/06/2023</td> -->
+  <!--     <td>442.44 PKR</td> -->
+  <!--     <td>Sameer</td> -->
+  <!--     <td>Miscellanous</td> -->
+  <!--   </tr> -->
+</tbody>
+</table>
+      <!-- Your content -->
+    </div>
+  </div>
+
+  <form method="GET" action="/profile">
+    <button class="modal-close is-large" aria-label="close"></button>
+  </form>
+</div>
+
+{% endblock %}
